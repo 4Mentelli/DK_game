@@ -6,7 +6,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class GameView extends JPanel implements KeyListener {
 
@@ -15,33 +14,36 @@ public class GameView extends JPanel implements KeyListener {
     private GameView world;
 
 
-    public GameView() {
+    final int PANEL_WIDTH = 500;
+    Image donkey;
+    final int PANEL_HEIGHT = 500;
 
-        Timer t = new Timer(10, (e) -> {
-            this.repaint();
-        });
-        t.start();
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-        this.addKeyListener(this);
+    //Image backgroundImage;
+    Timer timer;
+    int xVelocity = 1;
+    int yVelocity = 1;
+    int x = 0;
+    int y = 0;
 
+    GameView(){
+        this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
+        this.setBackground(Color.black);
+        donkey = new ImageIcon("dk_game/src/it/unibs/pajc/dk/donkey.png").getImage();
+        //backgroundImage = new ImageIcon("space.png").getImage();
+        //timer = new Timer(10, (ActionListener) this);
+        //timer.start();
     }
 
+    public void paint(Graphics g) {
 
-    protected void paintComponent(Graphics g) {
+        super.paint(g); // paint background
 
+        Graphics2D g2D = (Graphics2D) g;
 
-
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
-        double s = (double)Math.min(this.getWidth(), this.getHeight()) / 1000.0;
-        g2.scale(s, -s);
-        g2.translate(500, -500);
-        g2.setColor(Color.BLACK);
-        g2.fillRect(-500, -500, 1000, 1000);
-
-
+        //g2D.drawImage(backgroundImage, 0, 0, null);
+        g2D.drawImage(donkey, x, y, null);
     }
+
 
 
 
