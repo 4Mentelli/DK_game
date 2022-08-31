@@ -28,10 +28,12 @@ public class App{
     }
 
     private void initialize() {
-        this.frame = new JFrame();
-        this.frame.setBounds(100, 100, 872, 900);
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GameView view = new GameView();
-        this.frame.getContentPane().add(view, "Center");
+        this.frame = new JFrame();
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.add(view);
+        this.frame.pack();
+        this.frame.setLocationRelativeTo(null);
+        this.frame.setVisible(true);
     }
 }
