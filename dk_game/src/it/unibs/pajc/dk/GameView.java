@@ -3,11 +3,13 @@ package it.unibs.pajc.dk;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class GameView extends JPanel implements KeyListener {
+public class GameView extends JPanel implements ActionListener {
 
     protected ArrayList<DKObject> objects = new ArrayList();
     protected Beam b;
@@ -15,8 +17,8 @@ public class GameView extends JPanel implements KeyListener {
 
 
     final int PANEL_WIDTH = 500;
-    Image donkey;
     final int PANEL_HEIGHT = 500;
+    Image donkey;
 
     //Image backgroundImage;
     Timer timer;
@@ -30,8 +32,8 @@ public class GameView extends JPanel implements KeyListener {
         this.setBackground(Color.black);
         donkey = new ImageIcon("dk_game/src/it/unibs/pajc/dk/donkey.png").getImage();
         //backgroundImage = new ImageIcon("space.png").getImage();
-        //timer = new Timer(10, (ActionListener) this);
-        //timer.start();
+        timer = new Timer(10, this);
+        timer.start();
     }
 
     public void paint(Graphics g) {
@@ -44,21 +46,14 @@ public class GameView extends JPanel implements KeyListener {
         g2D.drawImage(donkey, x, y, null);
     }
 
-
-
-
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void actionPerformed(ActionEvent e) {
 
-    }
+        if(x>=PANEL_WIDTH-donkey.getWidth(null) || x<0) { xVelocity = xVelocity * -1; }
+        x = x + xVelocity;
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
+        if(y>=PANEL_HEIGHT-donkey.getHeight(null) || y<0) { yVelocity = yVelocity * -1; }
+        y = y + yVelocity;
+        repaint();
     }
 }
