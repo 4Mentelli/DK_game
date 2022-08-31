@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class DKObject {
 
-    protected float[] position = new float[]{0.0F, 0.0F, 0.0F};
+    /*protected float[] position = new float[]{0.0F, 0.0F, 0.0F};
     protected Color color;
     protected Shape shape;
     protected boolean isAlive = true;
@@ -41,5 +41,5 @@ public class DKObject {
     }
 
     public Shape getShape() {return this.shape;
-    }
+    }*/
 }

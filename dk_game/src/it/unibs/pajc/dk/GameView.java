@@ -19,6 +19,7 @@ public class GameView extends JPanel implements ActionListener {
     final int PANEL_WIDTH = 500;
     final int PANEL_HEIGHT = 500;
     Image donkey;
+    Beam beam = new Beam();
 
     //Image backgroundImage;
     Timer timer;
@@ -44,6 +45,7 @@ public class GameView extends JPanel implements ActionListener {
 
         //g2D.drawImage(backgroundImage, 0, 0, null);
         g2D.drawImage(donkey, x, y, null);
+        g2D.drawImage(beam.getImage(), beam.getX(), beam.getY(), null);
     }
 
     @Override
@@ -52,8 +54,6 @@ public class GameView extends JPanel implements ActionListener {
         if(x>=PANEL_WIDTH-donkey.getWidth(null) || x<0) { xVelocity = xVelocity * -1; }
         x = x + xVelocity;
 
-        if(y>=PANEL_HEIGHT-donkey.getHeight(null) || y<0) { yVelocity = yVelocity * -1; }
-        y = y + yVelocity;
         repaint();
     }
 }
