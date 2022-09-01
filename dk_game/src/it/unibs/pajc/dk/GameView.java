@@ -16,9 +16,9 @@ public class GameView extends JPanel implements ActionListener {
     private GameView world;
 
 
-    final int PANEL_WIDTH = 500;
+    final int PANEL_WIDTH = 736;
     final int PANEL_HEIGHT = 500;
-    Image donkey;
+    DonkeyKong kong = new DonkeyKong();
     ArrayList<Beam> beams = new ArrayList<>();
 
 
@@ -30,18 +30,18 @@ public class GameView extends JPanel implements ActionListener {
     int y = 0;
 
     GameView(){
-
+        Beam beam = new Beam(19, 475);
+        beams.add(beam);
         for (int i = 1; i < 7; i++) {
-            Beam beam = new Beam(100, 75 * i);
+            beam = new Beam(20 + ((i+1) % 2 * 100), 75 * i + 25);
             beams.add(beam);
-            beam = new Beam(396, 75 * i);
+            beam = new Beam(316 + ((i+1) % 2 * 100), 75 * i + 25);
             beams.add(beam);
         }
 
 
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
         this.setBackground(Color.black);
-        donkey = new ImageIcon("dk_game/src/it/unibs/pajc/dk/donkey.png").getImage();
         //backgroundImage = new ImageIcon("space.png").getImage();
         timer = new Timer(10, this);
         timer.start();
@@ -54,7 +54,7 @@ public class GameView extends JPanel implements ActionListener {
         Graphics2D g2D = (Graphics2D) g;
 
         //g2D.drawImage(backgroundImage, 0, 0, null);
-        g2D.drawImage(donkey, x, y, null);
+        g2D.drawImage(kong.getImage(), kong.getX(), kong.getY(), null);
         for (Beam b : beams) {
             g2D.drawImage(b.getImage(), b.getX(), b.getY(), null);
         }
@@ -64,7 +64,7 @@ public class GameView extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(x>=PANEL_WIDTH-donkey.getWidth(null) || x<0) { xVelocity = xVelocity * -1; }
+        if(x>=PANEL_WIDTH-kong.getImage().getWidth(null) || x<0) { xVelocity = xVelocity * -1; }
         x = x + xVelocity;
 
         repaint();

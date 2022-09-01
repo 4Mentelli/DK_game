@@ -4,42 +4,32 @@ import java.awt.*;
 
 public class DKObject {
 
-    /*protected float[] position = new float[]{0.0F, 0.0F, 0.0F};
-    protected Color color;
-    protected Shape shape;
-    protected boolean isAlive = true;
+    protected Image image;
+    protected int x;
+    protected int y;
 
-    public DKObject() {
+    public Image getImage() {
+        return image;
     }
 
-    public Color getColor() {
-        return this.color;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
-    public float getX() {
-        return this.position[0];
+    public int getX() {
+        return x;
     }
 
-    public float getY() {
-        return this.position[1];
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public void setX(float v) {
-        this.position[0] = v;
+    public int getY() {
+        return y;
     }
 
-    public void setY(float v) {
-        this.position[1] = v;
+    public void setY(int y) {
+        this.y = y;
     }
 
-    public void setR(float v) {
-        this.position[2] = v;
-    }
-
-    public boolean isAlive() {
-        return this.isAlive;
-    }
-
-    public Shape getShape() {return this.shape;
-    }*/
 }
