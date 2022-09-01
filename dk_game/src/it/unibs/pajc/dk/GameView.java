@@ -64,12 +64,11 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
 
         //g2D.drawImage(backgroundImage, 0, 0, null);
         g2D.drawImage(kong.getImage(), kong.getPosition()[0], kong.getPosition()[1], null);
-        g2D.drawImage(mario.getImage(), mario.getPosition()[0], mario.getPosition()[1], null);
         for (Beam b : beams) {
             g2D.drawImage(b.getImage(), b.getPosition()[0], b.getPosition()[1], null);
         }
         g2D.drawImage(ladder.getImage(), ladder.getPosition()[0], ladder.getPosition()[1], null);
-
+        g2D.drawImage(mario.getImage(), mario.getPosition()[0], mario.getPosition()[1], null);
     }
 
     @Override
