@@ -1,6 +1,7 @@
 package it.unibs.pajc.dk;
 
 import java.awt.*;
+import java.awt.event.KeyListener;
 
 public class DKObject {
 
@@ -32,4 +33,15 @@ public class DKObject {
         this.y = y;
     }
 
+    public void moveX() {
+
+    }
+
+    public void moveY() {
+
+    }
+
+    public void jump() {
+
+    }
 }

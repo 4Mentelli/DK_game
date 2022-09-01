@@ -13,4 +13,9 @@ public class Mario extends DKObject {
         Image i = im.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
         this.image = new ImageIcon(i).getImage();
     }
+
+    @Override
+    public void moveX() {
+        super.moveX();
+    }
 }

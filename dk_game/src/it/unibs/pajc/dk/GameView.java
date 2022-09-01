@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class GameView extends JPanel implements ActionListener {
+public class GameView extends JPanel implements KeyListener{
 
     protected ArrayList<DKObject> objects = new ArrayList();
     protected Beam b;
@@ -21,6 +21,7 @@ public class GameView extends JPanel implements ActionListener {
     DonkeyKong kong = new DonkeyKong();
     Mario mario = new Mario();
     ArrayList<Beam> beams = new ArrayList<>();
+    int move = 2;
 
 
     //Image backgroundImage;
@@ -44,8 +45,8 @@ public class GameView extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
         this.setBackground(Color.black);
         //backgroundImage = new ImageIcon("space.png").getImage();
-        timer = new Timer(10, this);
-        timer.start();
+        //timer = new Timer(10, this);
+        //timer.start();
     }
 
     public void paint(Graphics g) {
@@ -63,17 +64,33 @@ public class GameView extends JPanel implements ActionListener {
 
     }
 
-    @Override
+    /*@Override
     public void actionPerformed(ActionEvent e) {
 
-        if(x>=PANEL_WIDTH-kong.getImage().getWidth(null) || x<0) { xVelocity = xVelocity * -1; }
-        x = x + xVelocity;
-
         repaint();
+    }*/
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_LEFT: { mario.moveX(); break; }
+            case KeyEvent.VK_RIGHT: { mario.moveX(); break; }
+            case KeyEvent.VK_UP: { mario.moveY(); break; }
+            case KeyEvent.VK_DOWN: { mario.moveY(); break; }
+            case KeyEvent.VK_SPACE: { mario.jump(); break; }
+        }
+
     }
 
+    @Override
+    public void keyPressed(KeyEvent e) {
 
+    }
 
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }
 
 
