@@ -20,6 +20,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     final int PANEL_HEIGHT = 500;
     DonkeyKong kong = new DonkeyKong();
     Mario mario = new Mario();
+    Ladder ladder = new Ladder(580, 400);
     ArrayList<Beam> beams = new ArrayList<>();
     int move = 2;
 
@@ -39,6 +40,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             beam = new Beam(316 + ((i+1) % 2 * 100), 75 * i + 25);
             beams.add(beam);
         }
+
 
 
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
@@ -66,6 +68,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         for (Beam b : beams) {
             g2D.drawImage(b.getImage(), b.getPosition()[0], b.getPosition()[1], null);
         }
+        g2D.drawImage(ladder.getImage(), ladder.getPosition()[0], ladder.getPosition()[1], null);
 
     }
 
