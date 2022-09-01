@@ -8,6 +8,7 @@ public class DKObject {
     protected Image image;
     protected int x;
     protected int y;
+    protected DKObject dk_object;
 
     public Image getImage() {
         return image;

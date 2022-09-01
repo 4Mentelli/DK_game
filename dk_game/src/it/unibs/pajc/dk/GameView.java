@@ -44,9 +44,16 @@ public class GameView extends JPanel implements KeyListener{
 
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
         this.setBackground(Color.black);
-        //backgroundImage = new ImageIcon("space.png").getImage();
-        //timer = new Timer(10, this);
-        //timer.start();
+
+        Timer timer = new Timer(10, (e) -> {
+            repaint();
+        });
+
+        timer.start();
+
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+        this.addKeyListener(this);
     }
 
     public void paint(Graphics g) {
@@ -73,13 +80,14 @@ public class GameView extends JPanel implements KeyListener{
     @Override
     public void keyTyped(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_LEFT: { mario.moveX(); break; }
-            case KeyEvent.VK_RIGHT: { mario.moveX(); break; }
+            case KeyEvent.VK_LEFT: { mario.moveX(-1); break; }
+            case KeyEvent.VK_RIGHT: { mario.moveX(1); break; }
             case KeyEvent.VK_UP: { mario.moveY(); break; }
             case KeyEvent.VK_DOWN: { mario.moveY(); break; }
             case KeyEvent.VK_SPACE: { mario.jump(); break; }
         }
 
+        repaint();
     }
 
     @Override

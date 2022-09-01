@@ -14,8 +14,7 @@ public class Mario extends DKObject {
         this.image = new ImageIcon(i).getImage();
     }
 
-    @Override
-    public void moveX() {
-        super.moveX();
+    public void moveX(int movement) {
+        x += movement;
     }
 }
