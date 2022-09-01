@@ -10,10 +10,14 @@ public class Beam extends DKObject {
     private int x;
     private int y;
 
-    public Beam() {
-        image = new ImageIcon("dk_game/src/it/unibs/pajc/dk/beam.png").getImage();
-        x = 200;
-        y = 200;
+    public Beam(int x, int y) {
+
+        this.x = x;
+        this.y = y;
+
+        Image im = new ImageIcon("dk_game/src/it/unibs/pajc/dk/beam.png").getImage();
+        Image i = im.getScaledInstance(300, 20, Image.SCALE_SMOOTH);
+        image = new ImageIcon(i).getImage();
     }
 
     public Image getImage() {

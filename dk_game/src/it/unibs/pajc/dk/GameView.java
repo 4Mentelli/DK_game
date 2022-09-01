@@ -19,7 +19,8 @@ public class GameView extends JPanel implements ActionListener {
     final int PANEL_WIDTH = 500;
     final int PANEL_HEIGHT = 500;
     Image donkey;
-    Beam beam = new Beam();
+    ArrayList<Beam> beams = new ArrayList<>();
+
 
     //Image backgroundImage;
     Timer timer;
@@ -29,6 +30,15 @@ public class GameView extends JPanel implements ActionListener {
     int y = 0;
 
     GameView(){
+
+        for (int i = 1; i < 7; i++) {
+            Beam beam = new Beam(100, 75 * i);
+            beams.add(beam);
+            beam = new Beam(396, 75 * i);
+            beams.add(beam);
+        }
+
+
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
         this.setBackground(Color.black);
         donkey = new ImageIcon("dk_game/src/it/unibs/pajc/dk/donkey.png").getImage();
@@ -45,7 +55,10 @@ public class GameView extends JPanel implements ActionListener {
 
         //g2D.drawImage(backgroundImage, 0, 0, null);
         g2D.drawImage(donkey, x, y, null);
-        g2D.drawImage(beam.getImage(), beam.getX(), beam.getY(), null);
+        for (Beam b : beams) {
+            g2D.drawImage(b.getImage(), b.getX(), b.getY(), null);
+        }
+
     }
 
     @Override
