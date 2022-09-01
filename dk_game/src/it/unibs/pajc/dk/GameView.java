@@ -19,6 +19,7 @@ public class GameView extends JPanel implements ActionListener {
     final int PANEL_WIDTH = 736;
     final int PANEL_HEIGHT = 500;
     DonkeyKong kong = new DonkeyKong();
+    Mario mario = new Mario();
     ArrayList<Beam> beams = new ArrayList<>();
 
 
@@ -55,6 +56,7 @@ public class GameView extends JPanel implements ActionListener {
 
         //g2D.drawImage(backgroundImage, 0, 0, null);
         g2D.drawImage(kong.getImage(), kong.getX(), kong.getY(), null);
+        g2D.drawImage(mario.getImage(), mario.getX(), mario.getY(), null);
         for (Beam b : beams) {
             g2D.drawImage(b.getImage(), b.getX(), b.getY(), null);
         }
