@@ -15,14 +15,15 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     final int PANEL_HEIGHT = 760;
     DonkeyKong kong = new DonkeyKong();
     Mario mario = new Mario();
+    Peach peach = new Peach();
     ArrayList<Ladder> ladders = new ArrayList<>();
-    //Ladder ladder = new Ladder(658, 610);
-    //Ladder ladder2= new Ladder(144,505);
     ArrayList<Beam> beams = new ArrayList<>();
 
     GameView(){
 
         Beam beam = new Beam(17, 715);
+        beams.add(beam);
+        beam = new Beam(332,85);
         beams.add(beam);
         for (int i = 1; i < 7; i++) {
             beam = new Beam(20 + ((i+1) % 2 * 100), 105 * i + 85);
@@ -31,8 +32,10 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             beams.add(beam);
         }
 
+        Ladder ladder = new Ladder(355 ,85);
+        ladders.add(ladder);
         for (int i = 0; i < 5; i++) {
-            Ladder ladder = new Ladder(144 + ((i+1) % 2 * 514), (i * 105) + 190);
+            ladder = new Ladder(144 + ((i+1) % 2 * 514), (i * 105) + 190);
             ladders.add(ladder);
         }
 
@@ -61,9 +64,8 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             g2D.drawImage(b.getImage(), b.getPosition()[0], b.getPosition()[1], null);
         for (Ladder l : ladders)
             g2D.drawImage(l.getImage(), l.getPosition()[0], l.getPosition()[1], null);
-        //g2D.drawImage(ladder.getImage(), ladder.getPosition()[0], ladder.getPosition()[1], null);
-        //g2D.drawImage(ladder2.getImage(), ladder2.getPosition()[0], ladder2.getPosition()[1], null);
         g2D.drawImage(mario.getImage(), mario.getPosition()[0], mario.getPosition()[1], null);
+        g2D.drawImage(peach.getImage(), peach.getPosition()[0], peach.getPosition()[1], null);
     }
 
     @Override
