@@ -85,8 +85,8 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT: { mario.moveX(-1); break; }
             case KeyEvent.VK_RIGHT: { mario.moveX(1); break; }
-            case KeyEvent.VK_UP: { mario.moveY(); break; }
-            case KeyEvent.VK_DOWN: { mario.moveY(); break; }
+            case KeyEvent.VK_UP: { if (mario.ladderIsThere(ladders) == true) mario.moveY(-1); break; }
+            case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders) == true) mario.moveY(1); break; }
             case KeyEvent.VK_SPACE: { mario.jump(); break; }
         }
     }
