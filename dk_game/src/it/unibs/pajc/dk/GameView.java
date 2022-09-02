@@ -16,6 +16,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     DonkeyKong kong = new DonkeyKong();
     Mario mario = new Mario();
     Peach peach = new Peach();
+    Barrel barrel = new Barrel();
     ArrayList<Ladder> ladders = new ArrayList<>();
     ArrayList<Beam> beams = new ArrayList<>();
 
@@ -66,6 +67,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             g2D.drawImage(l.getImage(), l.getPosition()[0], l.getPosition()[1], null);
         g2D.drawImage(mario.getImage(), mario.getPosition()[0], mario.getPosition()[1], null);
         g2D.drawImage(peach.getImage(), peach.getPosition()[0], peach.getPosition()[1], null);
+        g2D.drawImage(barrel.getImage(), barrel.getPosition()[0], barrel.getPosition()[1], null);
     }
 
     @Override
