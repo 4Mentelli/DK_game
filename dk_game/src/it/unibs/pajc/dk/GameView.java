@@ -93,7 +93,10 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_LEFT: { mario.stand(-1); break; }
+            case KeyEvent.VK_RIGHT: { mario.stand(1); break; }
+        }
     }
 }
 
