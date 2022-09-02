@@ -11,28 +11,30 @@ import java.util.ArrayList;
 
 public class GameView extends JPanel implements ActionListener, KeyListener {
 
-    final int PANEL_WIDTH = 736;
-    final int PANEL_HEIGHT = 500;
+    final int PANEL_WIDTH = 826;
+    final int PANEL_HEIGHT = 760;
     DonkeyKong kong = new DonkeyKong();
     Mario mario = new Mario();
     ArrayList<Ladder> ladders = new ArrayList<>();
-    Ladder ladder = new Ladder(580, 400);
-    Ladder ladder2= new Ladder(130,325);
+    //Ladder ladder = new Ladder(658, 610);
+    //Ladder ladder2= new Ladder(144,505);
     ArrayList<Beam> beams = new ArrayList<>();
 
     GameView(){
 
-        Beam beam = new Beam(19, 475);
+        Beam beam = new Beam(17, 715);
         beams.add(beam);
         for (int i = 1; i < 7; i++) {
-            beam = new Beam(20 + ((i+1) % 2 * 100), 75 * i + 25);
+            beam = new Beam(20 + ((i+1) % 2 * 100), 105 * i + 85);
             beams.add(beam);
-            beam = new Beam(316 + ((i+1) % 2 * 100), 75 * i + 25);
+            beam = new Beam(332 + ((i+1) % 2 * 100), 105 * i + 85);
             beams.add(beam);
         }
 
-
-        //for (int i = 0; i < )
+        for (int i = 0; i < 5; i++) {
+            Ladder ladder = new Ladder(144 + ((i+1) % 2 * 514), (i * 105) + 190);
+            ladders.add(ladder);
+        }
 
 
 
@@ -55,11 +57,12 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         Graphics2D g2D = (Graphics2D) g;
 
         g2D.drawImage(kong.getImage(), kong.getPosition()[0], kong.getPosition()[1], null);
-        for (Beam b : beams) {
+        for (Beam b : beams)
             g2D.drawImage(b.getImage(), b.getPosition()[0], b.getPosition()[1], null);
-        }
-        g2D.drawImage(ladder.getImage(), ladder.getPosition()[0], ladder.getPosition()[1], null);
-        g2D.drawImage(ladder2.getImage(), ladder2.getPosition()[0], ladder2.getPosition()[1], null);
+        for (Ladder l : ladders)
+            g2D.drawImage(l.getImage(), l.getPosition()[0], l.getPosition()[1], null);
+        //g2D.drawImage(ladder.getImage(), ladder.getPosition()[0], ladder.getPosition()[1], null);
+        //g2D.drawImage(ladder2.getImage(), ladder2.getPosition()[0], ladder2.getPosition()[1], null);
         g2D.drawImage(mario.getImage(), mario.getPosition()[0], mario.getPosition()[1], null);
     }
 
