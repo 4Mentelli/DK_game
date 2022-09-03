@@ -29,7 +29,10 @@ public class DKObject {
     public void setY(int y) { this.position[1] = y; }
 
     public void moveX(int m) {
-        position[0] += movement[0] * m;
+        if (this.position[0] >= 10 && this.position[0] <= 780 )
+            position[0] += movement[0] * m;
+        else if (this.position[0] < 10) this.setX(13);
+        else this.setX(776);
     }
 
     public void moveY(int m) {
@@ -70,4 +73,13 @@ public class DKObject {
             }
         return false;
     }
+
+    /*public boolean onBeam(ArrayList<Beam> beams) {
+        for (Beam b : beams) {
+            if (this.position[1] == this.position[1] - 40) {
+                if (this.position[0] <)
+            }
+        }
+        return false;
+    }*/
 }
