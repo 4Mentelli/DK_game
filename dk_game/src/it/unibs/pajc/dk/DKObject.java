@@ -74,12 +74,45 @@ public class DKObject {
         return false;
     }
 
-    /*public boolean onBeam(ArrayList<Beam> beams) {
-        for (Beam b : beams) {
-            if (this.position[1] == this.position[1] - 40) {
-                if (this.position[0] <)
+    public boolean onBeam(ArrayList<Ladder> ladders) {
+
+        for (int i = 150; i < 600; i += 105) {
+
+            if (this.position[1] == i) {
+                if (i % 2 == 0) {
+                    if (this.position[0] > 695)
+                        return false;
+                    else return true;
+                }
+                else if (i % 2 == 1) {
+                    if (this.position[0] < 95)
+                        return false;
+                    else return true;
+                }
             }
         }
+
+        if (ladderIsThere(ladders))
+            return true;
         return false;
-    }*/
+        /*if (this.position[1] % 2 == 0) {
+            if (this.position[0] > 695)
+            return false;
+        }
+        else if (this.position[1] % 2 == 1)
+            if (this.position[1] > 100 && this.position[1] < 700) {
+                if (this.position[0] < 95)
+                return false;
+            }
+        else
+            for (int i = 45; i < 700; i += 105)
+            {
+                if (this.position[1] != i)
+                    return false;
+            }*/
+    }
+
+    public void gravity(ArrayList<Ladder> ladders) {
+        if (!onBeam(ladders)) this.setY(this.position[1] + movement[1]);
+    }
 }

@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class GameView extends JPanel implements ActionListener, KeyListener {
 
@@ -46,8 +48,8 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         this.setBackground(Color.black);
 
         Timer timer = new Timer(5, this);
-
         timer.start();
+
         this.setFocusable(true);
         this.requestFocusInWindow();
         this.setFocusTraversalKeysEnabled(false);
@@ -57,7 +59,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
 
     public void paint(Graphics g) {
 
-        super.paint(g);
+        super.paint(g); //paint background
         Graphics2D g2D = (Graphics2D) g;
 
         g2D.drawImage(kong.getImage(), kong.getPosition()[0], kong.getPosition()[1], null);
@@ -73,6 +75,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
+        mario.gravity(ladders);
     }
 
     @Override
@@ -83,8 +86,16 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_LEFT: { if (mario.fixPosition()) mario.moveX(-1); break; }
-            case KeyEvent.VK_RIGHT: { if (mario.fixPosition()) mario.moveX(1); break; }
+            case KeyEvent.VK_LEFT: {
+                if (mario.fixPosition())
+                    mario.moveX(-1);
+                break;
+            }
+            case KeyEvent.VK_RIGHT: {
+                if (mario.fixPosition())
+                    mario.moveX(1);
+                break;
+            }
             case KeyEvent.VK_UP: { if (mario.ladderIsThere(ladders)) mario.moveY(-1); break; }
             case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders)) mario.moveY(1); break; }
             case KeyEvent.VK_SPACE: { mario.jump(); break; }

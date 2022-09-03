@@ -8,7 +8,7 @@ public class Mario extends DKObject {
 
     public Mario() {
 
-        this.position = new int[] {160, 675};
+        this.position = new int[] {160, 570};
         this.movement = new int[] {7, 5};
         this.height = 40;
         this.width = 40;
