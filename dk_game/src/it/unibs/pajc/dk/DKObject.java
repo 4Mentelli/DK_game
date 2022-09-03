@@ -43,6 +43,12 @@ public class DKObject {
 
     }
 
+    /**
+     *
+     * @param object1
+     * @param object2
+     * @return true/false
+     */
     public boolean collisionDetector(DKObject object1, DKObject object2) {
         if (object2.position[0] > object1.position[0] && object2.position[0] < object1.position[0] + object1.width) {
             if (object2.position[1] > object1.position[0] && object2.position[1] < object1.position[1] + object1.width) {
@@ -52,6 +58,12 @@ public class DKObject {
         return false;
     }
 
+    /**
+     * Check the position of the object and return true if there is a ladder in the same place
+     *
+     * @param ladders
+     * @return true/false
+     */
     public boolean ladderIsThere(ArrayList<Ladder> ladders) {
         for (Ladder l : ladders) {
             if (this.position[0] > l.position[0] - 15 && this.position[0] < l.position[0] + 5)
@@ -62,6 +74,11 @@ public class DKObject {
         return false;
     }
 
+    /**
+     * Fix the position of an object when it climb the ladder
+     *
+     * @return
+     */
     public boolean fixPosition() {
         for (int i = 45; i < 700; i += 105)
             if (this.position[1] > i - 8 && this.position[1] < i + 8) {
@@ -74,6 +91,12 @@ public class DKObject {
         return false;
     }
 
+    /**
+     * Check the position of an object and return if it is on a beam or not
+     *
+     * @param ladders
+     * @return true/false
+     */
     public boolean onBeam(ArrayList<Ladder> ladders) {
 
         if(this.position[1] == 675 || (this.position[1] == 45 && this.position[0] > 300))
@@ -99,6 +122,11 @@ public class DKObject {
         return false;
     }
 
+    /**
+     * Introduce the gravaity that take the object up to a beam
+     *
+     * @param ladders
+     */
     public void gravity(ArrayList<Ladder> ladders) {
         if (!onBeam(ladders)) this.setY(this.position[1] + movement[1]);
     }

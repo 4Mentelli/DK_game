@@ -7,9 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class GameView extends JPanel implements ActionListener, KeyListener {
 
@@ -18,15 +16,16 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     DonkeyKong kong = new DonkeyKong();
     Mario mario = new Mario();
     Peach peach = new Peach();
-    Barrel barrel = new Barrel();
+    Barrel barrelGroup = new Barrel();
     ArrayList<Ladder> ladders = new ArrayList<>();
     ArrayList<Beam> beams = new ArrayList<>();
 
     GameView(){
 
-        Beam beam = new Beam(17, 715);
+        //Create the beams
+        Beam beam = new Beam(17, 715); //First beam
         beams.add(beam);
-        beam = new Beam(332,85);
+        beam = new Beam(332,85); //Peach beam
         beams.add(beam);
         for (int i = 1; i < 7; i++) {
             beam = new Beam(20 + ((i+1) % 2 * 100), 105 * i + 85);
@@ -35,15 +34,15 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             beams.add(beam);
         }
 
-        Ladder ladder = new Ladder(355 ,85);
+        //Create the ladders
+        Ladder ladder = new Ladder(355 ,85); //Peach ladder
         ladders.add(ladder);
         for (int i = 0; i < 5; i++) {
             ladder = new Ladder(144 + ((i+1) % 2 * 514), (i * 105) + 190);
             ladders.add(ladder);
         }
 
-
-
+        //Set the size of the panel
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
         this.setBackground(Color.black);
 
@@ -62,14 +61,15 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         super.paint(g); //paint background
         Graphics2D g2D = (Graphics2D) g;
 
-        g2D.drawImage(kong.getImage(), kong.getPosition()[0], kong.getPosition()[1], null);
+        //Paint the object
+        g2D.drawImage(kong.getImage(), kong.getPosition()[0], kong.getPosition()[1], null); //Donkey Kong
         for (Beam b : beams)
-            g2D.drawImage(b.getImage(), b.getPosition()[0], b.getPosition()[1], null);
+            g2D.drawImage(b.getImage(), b.getPosition()[0], b.getPosition()[1], null); //Beams
         for (Ladder l : ladders)
-            g2D.drawImage(l.getImage(), l.getPosition()[0], l.getPosition()[1], null);
-        g2D.drawImage(mario.getImage(), mario.getPosition()[0], mario.getPosition()[1], null);
-        g2D.drawImage(peach.getImage(), peach.getPosition()[0], peach.getPosition()[1], null);
-        g2D.drawImage(barrel.getImage(), barrel.getPosition()[0], barrel.getPosition()[1], null);
+            g2D.drawImage(l.getImage(), l.getPosition()[0], l.getPosition()[1], null); //Ladders
+        g2D.drawImage(mario.getImage(), mario.getPosition()[0], mario.getPosition()[1], null); //Mario
+        g2D.drawImage(peach.getImage(), peach.getPosition()[0], peach.getPosition()[1], null); //Peach
+        g2D.drawImage(barrelGroup.getImage(), barrelGroup.getPosition()[0], barrelGroup.getPosition()[1], null); //BarrelGroup
     }
 
     @Override
