@@ -1,5 +1,6 @@
 package it.unibs.pajc.dk;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -24,6 +25,9 @@ public class DKObject {
         return position;
     }
 
+    public void setX(int x) { this.position[0] = x; }
+    public void setY(int y) { this.position[1] = y; }
+
     public void moveX(int m) {
         position[0] += movement[0] * m;
     }
@@ -47,11 +51,23 @@ public class DKObject {
 
     public boolean ladderIsThere(ArrayList<Ladder> ladders) {
         for (Ladder l : ladders) {
-            if (this.position[0] > l.position[0] - 10 && this.position[0] < l.position[0] + 10)
+            if (this.position[0] > l.position[0] - 15 && this.position[0] < l.position[0] + 5)
                 for (int i = l.position[1]; i <= l.position[1] + l.height; i++)
                     if (this.position[1] + this.height == i )
                         return true;
         }
+        return false;
+    }
+
+    public boolean fixPosition() {
+        for (int i = 45; i < 700; i += 105)
+            if (this.position[1] > i - 8 && this.position[1] < i + 8) {
+                this.setY(i);
+                Image image = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioStandRight.png").getImage();
+                Image scaled_image = image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+                this.setImage(new ImageIcon(scaled_image).getImage());
+                return true;
+            }
         return false;
     }
 }

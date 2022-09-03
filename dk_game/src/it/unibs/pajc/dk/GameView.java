@@ -83,10 +83,10 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_LEFT: { mario.moveX(-1); break; }
-            case KeyEvent.VK_RIGHT: { mario.moveX(1); break; }
-            case KeyEvent.VK_UP: { if (mario.ladderIsThere(ladders) == true) mario.moveY(-1); break; }
-            case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders) == true) mario.moveY(1); break; }
+            case KeyEvent.VK_LEFT: { if (mario.fixPosition()) mario.moveX(-1); break; }
+            case KeyEvent.VK_RIGHT: { if (mario.fixPosition()) mario.moveX(1); break; }
+            case KeyEvent.VK_UP: { if (mario.ladderIsThere(ladders)) mario.moveY(-1); break; }
+            case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders)) mario.moveY(1); break; }
             case KeyEvent.VK_SPACE: { mario.jump(); break; }
         }
     }
@@ -94,8 +94,10 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_LEFT: { mario.stand(-1); break; }
-            case KeyEvent.VK_RIGHT: { mario.stand(1); break; }
+            case KeyEvent.VK_LEFT: { if (mario.fixPosition()) mario.stand(-1); break; }
+            case KeyEvent.VK_RIGHT: { if (mario.fixPosition()) mario.stand(1); break; }
+            case KeyEvent.VK_UP: { mario.fixPosition(); break; }
+            case KeyEvent.VK_DOWN: { mario.fixPosition(); break; }
         }
     }
 }
