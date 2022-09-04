@@ -16,9 +16,9 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     DonkeyKong kong = new DonkeyKong();
     Mario mario = new Mario();
     Peach peach = new Peach();
-    Barrel barrelGroup = new Barrel();
     ArrayList<Ladder> ladders = new ArrayList<>();
     ArrayList<Beam> beams = new ArrayList<>();
+    ArrayList<Barrel> barrels = new ArrayList<>();
 
     GameView(){
 
@@ -42,6 +42,10 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             ladders.add(ladder);
         }
 
+        //Create the barrels
+        Barrel barrel = new Barrel();
+        barrels.add(barrel);
+
         //Set the size of the panel
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
         this.setBackground(Color.black);
@@ -61,21 +65,30 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         super.paint(g); //paint background
         Graphics2D g2D = (Graphics2D) g;
 
+        //Graphics of barrel group
+        Image barrelGroup = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/barrelGroup.png").getImage();
+        Image i = barrelGroup.getScaledInstance(50, 77, Image.SCALE_SMOOTH);
+        barrelGroup = new ImageIcon(i).getImage();
+
         //Paint the object
         g2D.drawImage(kong.getImage(), kong.getPosition()[0], kong.getPosition()[1], null); //Donkey Kong
         for (Beam b : beams)
             g2D.drawImage(b.getImage(), b.getPosition()[0], b.getPosition()[1], null); //Beams
         for (Ladder l : ladders)
             g2D.drawImage(l.getImage(), l.getPosition()[0], l.getPosition()[1], null); //Ladders
+        for (Barrel ba : barrels)
+            //g2D.drawImage(ba.getImage(), ba.getPosition()[0], ba.getPosition()[1], null); //Barrel
         g2D.drawImage(mario.getImage(), mario.getPosition()[0], mario.getPosition()[1], null); //Mario
         g2D.drawImage(peach.getImage(), peach.getPosition()[0], peach.getPosition()[1], null); //Peach
-        g2D.drawImage(barrelGroup.getImage(), barrelGroup.getPosition()[0], barrelGroup.getPosition()[1], null); //BarrelGroup
+        g2D.drawImage(barrelGroup, 50, 113, null); //BarrelGroup
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
         mario.gravity(ladders);
+        /*barrels.get(0).barrelMovement();
+        barrels.get(0).gravity(ladders);*/
     }
 
     @Override
