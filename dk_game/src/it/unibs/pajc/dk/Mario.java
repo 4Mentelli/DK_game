@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Mario extends DKObject {
 
-    protected int n_jump;
+
 
     public Mario() {
 
@@ -19,14 +19,6 @@ public class Mario extends DKObject {
         Image im = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioStandRight.png").getImage();
         Image i = im.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         this.image = new ImageIcon(i).getImage();
-    }
-
-    public int getN_jump() {
-        return n_jump;
-    }
-
-    public void setN_jump(int n_jump) {
-        this.n_jump = n_jump;
     }
 
     /**

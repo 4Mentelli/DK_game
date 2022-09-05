@@ -11,6 +11,7 @@ public class DKObject {
     protected int [] movement = {0, 0};
     protected int height;
     protected int width;
+    protected int n_jump;
 
 
     public Image getImage() {
@@ -27,6 +28,10 @@ public class DKObject {
 
     public void setX(int x) { this.position[0] = x; }
     public void setY(int y) { this.position[1] = y; }
+
+    public int getN_jump() { return n_jump; }
+
+    public void setN_jump(int n_jump) { this.n_jump = n_jump; }
 
     public void moveX(int m) {
         if (this.position[0] >= 10 && this.position[0] <= 780 )
@@ -113,7 +118,7 @@ public class DKObject {
             }
         }
 
-        if (ladderIsThere(ladders, var))
+        if (ladderIsThere(ladders, var) && this.n_jump != 0)
             return true;
         return false;
     }
