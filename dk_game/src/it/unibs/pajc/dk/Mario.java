@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class Mario extends DKObject {
 
+    protected int n_jump;
+
     public Mario() {
 
         //Mario all'inizio del gioco
@@ -13,9 +15,18 @@ public class Mario extends DKObject {
         this.movement = new int[] {7, 5};
         this.height = 40;
         this.width = 40;
+        this.n_jump = 0;
         Image im = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioStandRight.png").getImage();
         Image i = im.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         this.image = new ImageIcon(i).getImage();
+    }
+
+    public int getN_jump() {
+        return n_jump;
+    }
+
+    public void setN_jump(int n_jump) {
+        this.n_jump = n_jump;
     }
 
     /**
@@ -91,5 +102,11 @@ public class Mario extends DKObject {
             Image scaled_image = image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
             this.setImage(new ImageIcon(scaled_image).getImage());
         }
+    }
+
+    public void jump() {
+        ArrayList<Ladder> ladders = new ArrayList<>();
+        if (this.onBeam(ladders, 0))
+            this.setN_jump(8);
     }
 }

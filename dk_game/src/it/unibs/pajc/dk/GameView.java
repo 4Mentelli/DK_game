@@ -86,7 +86,13 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
-        mario.gravity(ladders);
+        mario.gravity(ladders, 10);
+
+        if (mario.getN_jump() > 0) {
+            mario.setY(mario.position[1] - 2 * mario.movement[1]);
+            mario.setN_jump(mario.getN_jump() - 1);
+        }
+
         /*barrels.get(0).barrelMovement();
         barrels.get(0).gravity(ladders);*/
     }
@@ -109,8 +115,8 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
                     mario.moveX(1);
                 break;
             }
-            case KeyEvent.VK_UP: { if (mario.ladderIsThere(ladders)) mario.moveY(-1); break; }
-            case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders)) mario.moveY(1); break; }
+            case KeyEvent.VK_UP: { if (mario.ladderIsThere(ladders, 0)) mario.moveY(-1); break; }
+            case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders, 0)) mario.moveY(1); break; }
             case KeyEvent.VK_SPACE: { mario.jump(); break; }
         }
     }

@@ -39,10 +39,6 @@ public class DKObject {
         position[1] += movement[1] * m;
     }
 
-    public void jump() {
-
-    }
-
     /**
      *
      * @param object1
@@ -64,10 +60,10 @@ public class DKObject {
      * @param ladders
      * @return true/false
      */
-    public boolean ladderIsThere(ArrayList<Ladder> ladders) {
+    public boolean ladderIsThere(ArrayList<Ladder> ladders, int var) {  //var is used to separate the gravity case and the climbing case, differentiating the ladder/mario range
         for (Ladder l : ladders) {
             if (this.position[0] > l.position[0] - 15 && this.position[0] < l.position[0] + 5)
-                for (int i = l.position[1]; i <= l.position[1] + l.height; i++)
+                for (int i = l.position[1]; i <= l.position[1] + l.height + var; i++)
                     if (this.position[1] + this.height == i )
                         return true;
         }
@@ -97,7 +93,7 @@ public class DKObject {
      * @param ladders
      * @return true/false
      */
-    public boolean onBeam(ArrayList<Ladder> ladders) {
+    public boolean onBeam(ArrayList<Ladder> ladders, int var) {
 
         if(this.position[1] == 675 || (this.position[1] == 45 && this.position[0] > 300))
             return true;
@@ -117,17 +113,18 @@ public class DKObject {
             }
         }
 
-        if (ladderIsThere(ladders))
+        if (ladderIsThere(ladders, var))
             return true;
         return false;
     }
 
     /**
-     * Introduce the gravaity that take the object up to a beam
+     * Introduce the gravity that take an object down to a beam
      *
      * @param ladders
      */
-    public void gravity(ArrayList<Ladder> ladders) {
-        if (!onBeam(ladders)) this.setY(this.position[1] + movement[1]);
+    public void gravity(ArrayList<Ladder> ladders, int var) {
+
+        if (!onBeam(ladders, var)) this.setY(this.position[1] + this.movement[1]);
     }
 }
