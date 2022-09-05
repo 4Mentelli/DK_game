@@ -83,7 +83,7 @@ public class DKObject {
      * @return
      */
     public boolean fixPosition() {
-        for (int i = 45; i < 700; i += 105)
+        for (int i = 45; i < 700; i += 105) {
             if (this.position[1] > i - 8 && this.position[1] < i + 8) {
                 this.setY(i);
                 Image image = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioStandRight.png").getImage();
@@ -91,6 +91,10 @@ public class DKObject {
                 this.setImage(new ImageIcon(scaled_image).getImage());
                 return true;
             }
+        }
+        if (this.isFalling())
+            return true;
+
         return false;
     }
 
