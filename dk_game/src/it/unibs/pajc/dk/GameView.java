@@ -20,6 +20,12 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     ArrayList<Beam> beams = new ArrayList<>();
     ArrayList<Barrel> barrels = new ArrayList<>();
 
+    private boolean left = false;
+    private boolean up = false;
+    private boolean down = false;
+    private boolean right = false;
+    private boolean space = false;
+
     GameView(){
 
         //Create the beams
@@ -109,28 +115,34 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             case KeyEvent.VK_LEFT: {
                 if (mario.fixPosition())
                     mario.moveX(-1);
+                left = true;
                 break;
             }
             case KeyEvent.VK_RIGHT: {
                 if (mario.fixPosition())
                     mario.moveX(1);
+                right = true;
                 break;
             }
-            case KeyEvent.VK_UP: { mario.setFalling(false); if (mario.ladderIsThere(ladders, 0)) mario.moveY(-1); break; }
-            case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders, 0)) mario.moveY(1); break; }
-            case KeyEvent.VK_SPACE: { mario.setFalling(true); mario.jump(); break; }
+            case KeyEvent.VK_UP: { mario.setFalling(false); if (mario.ladderIsThere(ladders, 0)) mario.moveY(-1); up = true; break; }
+            case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders, 0)) mario.moveY(1); down = true; break; }
+            case KeyEvent.VK_SPACE: { mario.setFalling(true); mario.jump(); space = true; break; }
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_LEFT: { if (mario.fixPosition()) mario.stand(-1); break; }
-            case KeyEvent.VK_RIGHT: { if (mario.fixPosition()) mario.stand(1); break; }
-            case KeyEvent.VK_UP: { mario.fixPosition(); break; }
-            case KeyEvent.VK_DOWN: { mario.fixPosition(); break; }
+            case KeyEvent.VK_LEFT: { if (mario.fixPosition()) mario.stand(-1); left = false; break; }
+            case KeyEvent.VK_RIGHT: { if (mario.fixPosition()) mario.stand(1); right = false; break; }
+            case KeyEvent.VK_UP: { mario.fixPosition(); up = false; break; }
+            case KeyEvent.VK_DOWN: { mario.fixPosition(); down = false; break; }
+            case KeyEvent.VK_SPACE:{ space = false; break;}
         }
     }
+
+
+
 }
 
 

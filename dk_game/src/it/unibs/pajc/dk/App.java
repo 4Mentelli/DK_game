@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 public class App{
     private JFrame frame;
 
-
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -36,4 +35,6 @@ public class App{
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
     }
+
+
 }
