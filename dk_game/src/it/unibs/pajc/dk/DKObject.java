@@ -12,7 +12,7 @@ public class DKObject {
     protected int height;
     protected int width;
     protected int n_jump;
-
+    protected boolean falling;
 
     public Image getImage() {
         return image;
@@ -30,8 +30,10 @@ public class DKObject {
     public void setY(int y) { this.position[1] = y; }
 
     public int getN_jump() { return n_jump; }
-
     public void setN_jump(int n_jump) { this.n_jump = n_jump; }
+
+    public boolean isFalling() { return falling; }
+    public void setFalling(boolean falling) { this.falling = falling; }
 
     public void moveX(int m) {
         if (this.position[0] >= 10 && this.position[0] <= 780 )
@@ -118,8 +120,19 @@ public class DKObject {
             }
         }
 
-        if (ladderIsThere(ladders, var) && this.n_jump != 0)
-            return true;
+        if (ladderIsThere(ladders, var)) {
+            if (this.n_jump > 0) {
+                return false;
+            }
+            else if (this.isFalling()) {
+                if ((this.position[1] - 45) % 105 == 0) {
+                    this.setFalling(false);
+                }
+                return false;
+            }
+            else
+                return true;
+        }
         return false;
     }
 

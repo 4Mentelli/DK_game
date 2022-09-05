@@ -16,6 +16,7 @@ public class Mario extends DKObject {
         this.height = 40;
         this.width = 40;
         this.n_jump = 0;
+        this.falling = false;
         Image im = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioStandRight.png").getImage();
         Image i = im.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         this.image = new ImageIcon(i).getImage();

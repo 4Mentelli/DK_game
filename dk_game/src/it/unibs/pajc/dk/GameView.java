@@ -89,9 +89,8 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         mario.gravity(ladders, 10);
 
         if (mario.getN_jump() > 0) {
-            if (mario.ladderIsThere(ladders, 0)) //exception to fix the jump on a ladder
-                mario.setY(mario.position[1] - mario.movement[1]);
-            else mario.setY(mario.position[1] - 2 * mario.movement[1]);
+            mario.setFalling(true);
+            mario.setY(mario.position[1] - 2 * mario.movement[1]);
             mario.setN_jump(mario.getN_jump() - 1);
         }
 
@@ -117,7 +116,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
                     mario.moveX(1);
                 break;
             }
-            case KeyEvent.VK_UP: { if (mario.ladderIsThere(ladders, 0)) mario.moveY(-1); break; }
+            case KeyEvent.VK_UP: { mario.setFalling(false); if (mario.ladderIsThere(ladders, 0)) mario.moveY(-1); break; }
             case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders, 0)) mario.moveY(1); break; }
             case KeyEvent.VK_SPACE: { mario.jump(); break; }
         }
