@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.concurrent.*;
 
 public class GameView extends JPanel implements ActionListener, KeyListener {
 
@@ -91,6 +92,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        thread.run();
         repaint();
         mario.gravity(ladders, 10);
 
@@ -112,18 +114,8 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_LEFT: {
-                if (mario.fixPosition())
-                    mario.moveX(-1);
-                left = true;
-                break;
-            }
-            case KeyEvent.VK_RIGHT: {
-                if (mario.fixPosition())
-                    mario.moveX(1);
-                right = true;
-                break;
-            }
+            case KeyEvent.VK_LEFT: { left = true; break; }
+            case KeyEvent.VK_RIGHT: { right = true; break; }
             case KeyEvent.VK_UP: { mario.setFalling(false); if (mario.ladderIsThere(ladders, 0)) mario.moveY(-1); up = true; break; }
             case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders, 0)) mario.moveY(1); down = true; break; }
             case KeyEvent.VK_SPACE: { mario.setFalling(true); mario.jump(); space = true; break; }
@@ -141,8 +133,42 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-
-
+    public Thread thread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    if (left && space) {
+                        mario.moveX(-1);
+                        mario.jump();
+                        break;
+                    } else if (right && space) {
+                        mario.moveX(1);
+                        mario.jump();
+                        break;
+                    } else if (left) {
+                        if (mario.fixPosition()) {
+                            mario.moveX(-1);
+                            if (!mario.onBeam(ladders, 0))
+                                left = false;
+                        }
+                        break;
+                    } else if (right) {
+                        if (mario.fixPosition()) {
+                            mario.moveX(1);
+                            if (!mario.onBeam(ladders, 0))
+                                right = false;
+                        }
+                        break;
+                    } else break;
+                }
+                Thread.sleep(5);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                System.exit(0);
+            }
+        }
+    });
 }
 
 
