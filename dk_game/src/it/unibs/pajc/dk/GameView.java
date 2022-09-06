@@ -116,9 +116,9 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT: { left = true; break; }
             case KeyEvent.VK_RIGHT: { right = true; break; }
-            case KeyEvent.VK_UP: { mario.setFalling(false); if (mario.ladderIsThere(ladders, 0)) mario.moveY(-1); up = true; break; }
-            case KeyEvent.VK_DOWN: { if (mario.ladderIsThere(ladders, 0)) mario.moveY(1); down = true; break; }
-            case KeyEvent.VK_SPACE: { mario.setFalling(true); mario.jump(); space = true; break; }
+            case KeyEvent.VK_UP: { up = true; break; }
+            case KeyEvent.VK_DOWN: { down = true; break; }
+            case KeyEvent.VK_SPACE: { space = true; break; }
         }
     }
 
@@ -129,7 +129,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             case KeyEvent.VK_RIGHT: { if (mario.fixPosition()) mario.stand(1); right = false; break; }
             case KeyEvent.VK_UP: { mario.fixPosition(); up = false; break; }
             case KeyEvent.VK_DOWN: { mario.fixPosition(); down = false; break; }
-            case KeyEvent.VK_SPACE:{ space = false; break;}
+            case KeyEvent.VK_SPACE:{ space = false; break; }
         }
     }
 
@@ -142,10 +142,15 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
                         mario.moveX(-1);
                         mario.jump();
                         break;
+
                     } else if (right && space) {
                         mario.moveX(1);
                         mario.jump();
                         break;
+
+                    } else if (down && space) {
+                        break;
+
                     } else if (left) {
                         if (mario.fixPosition()) {
                             mario.moveX(-1);
@@ -153,6 +158,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
                                 left = false;
                         }
                         break;
+
                     } else if (right) {
                         if (mario.fixPosition()) {
                             mario.moveX(1);
@@ -160,9 +166,28 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
                                 right = false;
                         }
                         break;
+
+                    } else if (up) {
+                        mario.setFalling(false);
+                        if (mario.ladderIsThere(ladders, 0))
+                            mario.moveY(-1);
+                        break;
+
+                    } else if (down) {
+                        if (mario.onBeam(ladders, 0))
+                            mario.setFalling(false);
+                        if (mario.ladderIsThere(ladders, 0))
+                            mario.moveY(1);
+                        break;
+
+                    } else if (space) {
+                        mario.setFalling(true);
+                        mario.jump();
+                        break;
+
                     } else break;
                 }
-                Thread.sleep(5);
+                Thread.sleep(10);
             } catch (Exception ex) {
                 ex.printStackTrace();
                 System.exit(0);
