@@ -84,7 +84,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         for (Ladder l : ladders)
             g2D.drawImage(l.getImage(), l.getPosition()[0], l.getPosition()[1], null); //Ladders
         for (Barrel ba : barrels)
-            //g2D.drawImage(ba.getImage(), ba.getPosition()[0], ba.getPosition()[1], null); //Barrel
+            g2D.drawImage(ba.getImage(), ba.getPosition()[0], ba.getPosition()[1], null); //Barrel
         g2D.drawImage(mario.getImage(), mario.getPosition()[0], mario.getPosition()[1], null); //Mario
         g2D.drawImage(peach.getImage(), peach.getPosition()[0], peach.getPosition()[1], null); //Peach
         g2D.drawImage(barrelGroup, 50, 113, null); //BarrelGroup
@@ -102,8 +102,8 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             mario.setN_jump(mario.getN_jump() - 1);
         }
 
-        /*barrels.get(0).barrelMovement();
-        barrels.get(0).gravity(ladders);*/
+        barrels.get(0).barrelMovement();
+        barrels.get(0).gravity(ladders, 0);
     }
 
     @Override

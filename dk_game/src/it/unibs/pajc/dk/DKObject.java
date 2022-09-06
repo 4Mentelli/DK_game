@@ -106,9 +106,18 @@ public class DKObject {
      */
     public boolean onBeam(ArrayList<Ladder> ladders, int var) {
 
-        if(this.position[1] == 675 || (this.position[1] == 45 && this.position[0] > 300))
+        int j = 675;
+        if (this.width == 30)
+            j = 685;
+
+        if(this.position[1] == j || (this.position[1] == 45 && this.position[0] > 300))
             return true;
-        for (int i = 150; i < 600; i += 105) {
+
+        j = 150;
+        if (this.width == 30)
+            j = 160;
+
+        for (int i = j; i < 600; i += 105) {
 
             if (this.position[1] == i) {
                 if (i % 2 == 0) {
@@ -147,6 +156,6 @@ public class DKObject {
      */
     public void gravity(ArrayList<Ladder> ladders, int var) {
 
-        if (!onBeam(ladders, var)) this.setY(this.position[1] + this.movement[1]);
+        if (!this.onBeam(ladders, var)) this.setY(this.position[1] + this.movement[1]);
     }
 }
