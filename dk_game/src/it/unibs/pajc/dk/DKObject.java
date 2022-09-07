@@ -13,6 +13,7 @@ public class DKObject {
     protected int width;
     protected int n_jump;
     protected boolean falling;
+    protected boolean alive;
 
     public Image getImage() {
         return image;
@@ -34,6 +35,9 @@ public class DKObject {
 
     public boolean isFalling() { return falling; }
     public void setFalling(boolean falling) { this.falling = falling; }
+
+    public boolean isAlive() { return alive; }
+    public void setAlive(boolean alive) { this.alive = alive; }
 
     public void moveX(int m) {
         if (this.position[0] >= 10 && this.position[0] <= 780 )

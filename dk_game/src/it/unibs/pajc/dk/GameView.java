@@ -95,6 +95,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         thread.run();
         repaint();
         mario.gravity(ladders, 10);
+        kong.resetStandingImage(barrels);
 
         if (mario.getN_jump() > 0) {
 
@@ -102,8 +103,30 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             mario.setN_jump(mario.getN_jump() - 1);
         }
 
-        barrels.get(0).barrelMovement();
-        barrels.get(0).gravity(ladders, 0);
+        for (int i = 0; i < barrels.size(); i++) {
+            barrels.get(i).barrelMovement();
+            barrels.get(i).gravity(ladders, 0);
+
+            if (barrels.get(i).position[0] > 300 && barrels.get(i).position[0] < 305 && barrels.get(i).position[1] == 370) {
+                Barrel new_b = new Barrel();
+                barrels.add(new_b);
+                kong.setReleasingImage();
+            }
+            if (barrels.get(i).position[0] > 300 && barrels.get(i).position[0] < 305 && barrels.get(i).position[1] == 580 && barrels.size() == 1) {
+                Barrel new_b = new Barrel();
+                barrels.add(new_b);
+                kong.setReleasingImage();
+            }
+            if (!barrels.get(i).isAlive()) {
+                barrels.remove(barrels.get(i));
+                if (barrels.size() == 0) {
+                    Barrel new_barrel = new Barrel();
+                    barrels.add(new_barrel);
+                    kong.setReleasingImage();
+                }
+            }
+        }
+
     }
 
     @Override

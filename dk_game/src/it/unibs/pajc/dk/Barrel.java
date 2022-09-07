@@ -2,6 +2,7 @@ package it.unibs.pajc.dk;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Barrel extends DKObject{
 
@@ -15,6 +16,7 @@ public class Barrel extends DKObject{
         this.rotation = -1;
         this.height = 30;
         this.width = 30;
+        this.alive = true;
         Image im = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/barrel.png").getImage();
         Image i = im.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         this.image = new ImageIcon(i).getImage();
@@ -41,18 +43,21 @@ public class Barrel extends DKObject{
             this.rotation = rotation * -1;
         }
         else if (this.position[0] < 10) {
+            if (this.position[1] == 685)
+                this.setAlive(false);
+            int random = ThreadLocalRandom.current().nextInt();
+            if (random % 8 == 0)
+                this.setAlive(false);
             this.setX(13);
             this.vec = 1;
         }
         else {
+            int random = ThreadLocalRandom.current().nextInt();
+            if (random % 4 == 0)
+                this.setAlive(false);
             this.setX(776);
             this.vec = -1;
         }
 
     }
-
-    public void rotation(int rotation) {
-
-    }
-
 }
