@@ -93,6 +93,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         thread.run();
+        barrel_thread.run();
         repaint();
         mario.gravity(ladders, 10);
         kong.resetStandingImage(barrels);
@@ -101,30 +102,6 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
 
             mario.setY(mario.position[1] - 2 * mario.movement[1]);
             mario.setN_jump(mario.getN_jump() - 1);
-        }
-
-        for (int i = 0; i < barrels.size(); i++) {
-            barrels.get(i).barrelMovement();
-            barrels.get(i).gravity(ladders, 0);
-
-            if (barrels.get(i).position[0] > 300 && barrels.get(i).position[0] < 305 && barrels.get(i).position[1] == 370) {
-                Barrel new_b = new Barrel();
-                barrels.add(new_b);
-                kong.setReleasingImage();
-            }
-            if (barrels.get(i).position[0] > 300 && barrels.get(i).position[0] < 305 && barrels.get(i).position[1] == 580 && barrels.size() == 1) {
-                Barrel new_b = new Barrel();
-                barrels.add(new_b);
-                kong.setReleasingImage();
-            }
-            if (!barrels.get(i).isAlive()) {
-                barrels.remove(barrels.get(i));
-                if (barrels.size() == 0) {
-                    Barrel new_barrel = new Barrel();
-                    barrels.add(new_barrel);
-                    kong.setReleasingImage();
-                }
-            }
         }
 
     }
@@ -156,65 +133,94 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-    public Thread thread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            try {
-                while (true) {
-                    if (left && space) {
+    public Thread thread = new Thread(() -> {
+        try {
+            while (true) {
+                if (left && space) {
+                    mario.moveX(-1);
+                    mario.jump();
+                    break;
+
+                } else if (right && space) {
+                    mario.moveX(1);
+                    mario.jump();
+                    break;
+
+                } else if (down && space) {
+                    break;
+
+                } else if (left) {
+                    if (mario.fixPosition()) {
                         mario.moveX(-1);
-                        mario.jump();
-                        break;
+                        if (!mario.onBeam(ladders, 0))
+                            left = false;
+                    }
+                    break;
 
-                    } else if (right && space) {
+                } else if (right) {
+                    if (mario.fixPosition()) {
                         mario.moveX(1);
-                        mario.jump();
-                        break;
+                        if (!mario.onBeam(ladders, 0))
+                            right = false;
+                    }
+                    break;
 
-                    } else if (down && space) {
-                        break;
+                } else if (up) {
+                    mario.setFalling(false);
+                    if (mario.ladderIsThere(ladders, 0))
+                        mario.moveY(-1);
+                    break;
 
-                    } else if (left) {
-                        if (mario.fixPosition()) {
-                            mario.moveX(-1);
-                            if (!mario.onBeam(ladders, 0))
-                                left = false;
-                        }
-                        break;
-
-                    } else if (right) {
-                        if (mario.fixPosition()) {
-                            mario.moveX(1);
-                            if (!mario.onBeam(ladders, 0))
-                                right = false;
-                        }
-                        break;
-
-                    } else if (up) {
+                } else if (down) {
+                    if (mario.onBeam(ladders, 0))
                         mario.setFalling(false);
-                        if (mario.ladderIsThere(ladders, 0))
-                            mario.moveY(-1);
-                        break;
+                    if (mario.ladderIsThere(ladders, 0))
+                        mario.moveY(1);
+                    break;
 
-                    } else if (down) {
-                        if (mario.onBeam(ladders, 0))
-                            mario.setFalling(false);
-                        if (mario.ladderIsThere(ladders, 0))
-                            mario.moveY(1);
-                        break;
+                } else if (space) {
+                    mario.setFalling(true);
+                    mario.jump();
+                    break;
 
-                    } else if (space) {
-                        mario.setFalling(true);
-                        mario.jump();
-                        break;
-
-                    } else break;
-                }
-                Thread.sleep(10);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                System.exit(0);
+                } else break;
             }
+            Thread.sleep(10);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(0);
+        }
+    });
+
+    public Thread barrel_thread = new Thread(() -> {
+        try {
+            for (int i = 0; i < barrels.size(); i++) {
+                barrels.get(i).barrelMovement();
+                barrels.get(i).gravity(ladders, 0);
+
+                if (barrels.get(i).position[0] > 300 && barrels.get(i).position[0] < 305 && barrels.get(i).position[1] == 370) {
+                    Barrel new_b = new Barrel();
+                    barrels.add(new_b);
+                    kong.setReleasingImage();
+                }
+                if (barrels.get(i).position[0] > 300 && barrels.get(i).position[0] < 305 && barrels.get(i).position[1] == 580 && barrels.size() == 1) {
+                    Barrel new_b = new Barrel();
+                    barrels.add(new_b);
+                    kong.setReleasingImage();
+                }
+                if (!barrels.get(i).isAlive()) {
+                    barrels.remove(barrels.get(i));
+                    if (barrels.size() == 0) {
+                        Barrel new_barrel = new Barrel();
+                        barrels.add(new_barrel);
+                        kong.setReleasingImage();
+                    }
+                }
+            }
+            Thread.sleep(10);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(0);
         }
     });
 }
