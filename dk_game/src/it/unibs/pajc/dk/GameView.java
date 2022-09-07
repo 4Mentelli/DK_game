@@ -199,7 +199,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
                 barrels.get(i).barrelMovement();
                 barrels.get(i).gravity(ladders, 0);
                 if (mario.checkCollision(barrels.get(i)))
-                    System.out.println("Collision");
+                    System.out.println("Collision" + i);
 
                 if (barrels.get(i).position[0] > 300 && barrels.get(i).position[0] < 305 && barrels.get(i).position[1] == 370) {
                     Barrel new_b = new Barrel();
