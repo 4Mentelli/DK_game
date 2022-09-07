@@ -159,7 +159,17 @@ public class DKObject {
      * @param ladders
      */
     public void gravity(ArrayList<Ladder> ladders, int var) {
-
         if (!this.onBeam(ladders, var)) this.setY(this.position[1] + this.movement[1]);
+    }
+
+    public boolean checkCollision(DKObject object) {
+        for (int i1 = this.position[0]; i1 < this.position[0] - 16 + this.width; i1++)
+            for (int j1 = this.position[1]; j1 < this.position[1] - 16 + this.height; j1++)
+                for (int i2 = object.position[0]; i2 < object.position[0] - 16 + object.width; i2++)
+                    for (int j2 = object.position[1]; j2 < object.position[1] - 16 + object.height; j2++) {
+                        if (i1 == i2 && j1 == j2)
+                            return true;
+                    }
+        return false;
     }
 }

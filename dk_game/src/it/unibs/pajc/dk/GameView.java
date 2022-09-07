@@ -95,6 +95,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         thread.run();
         barrel_thread.run();
         repaint();
+
         mario.gravity(ladders, 10);
         kong.resetStandingImage(barrels);
 
@@ -197,6 +198,8 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             for (int i = 0; i < barrels.size(); i++) {
                 barrels.get(i).barrelMovement();
                 barrels.get(i).gravity(ladders, 0);
+                if (mario.checkCollision(barrels.get(i)))
+                    System.out.println("Collision");
 
                 if (barrels.get(i).position[0] > 300 && barrels.get(i).position[0] < 305 && barrels.get(i).position[1] == 370) {
                     Barrel new_b = new Barrel();
