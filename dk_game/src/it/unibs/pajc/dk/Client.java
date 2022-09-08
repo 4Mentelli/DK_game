@@ -12,7 +12,6 @@ public class Client {
     DataOutputStream out;
     BufferedReader reader = null;
 
-    BufferedReader reader;
 
     public Socket connect(JLabel connection_label) {
 
@@ -36,25 +35,20 @@ public class Client {
         return client;
     }
 
-<<<<<<< HEAD
-=======
-    public void message() {
+    public void message(String user) {
         try {
             reader = new BufferedReader(new InputStreamReader(System.in));
 
-            System.out.println("[2] - Messaggio da inviare al server: ");
-            String message = reader.readLine();
-            System.out.println("[3] - invio: "+ message);
-            out.writeBytes(message + "\n");
-            System.out.println("[4] - in attesa di una risposta");
-            String recived = in.readLine();
-            System.out.println("risposta del server: "+ recived);
+            System.out.println("[2] - Username del client da inviare al server: " + user);
+            out.writeBytes(user);
+
+            System.out.println("[3] - In attesa dell'username del server");
+            String opponent = in.readLine();
+            System.out.println("[4] - Username del server: "+ opponent);
 
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
->>>>>>> 6805c77fa58bffd12a6bbf269c5f0ff181c5af4e
-
 }

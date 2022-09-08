@@ -39,14 +39,14 @@ public class Server {
         return client;
     }
 
-    public void message() {
+    public void message(String user) {
         try {
-            System.out.println("[3] - In attesa di un messaggio...");
-            String score = in.readLine();
-            System.out.println("[4] - Ricevuto il messaggio: " + score);
-            String recived_message = score.toUpperCase(Locale.ROOT);
-            System.out.println("[5] - Risposta del server: " + recived_message);
-            out.writeBytes(recived_message + "\n");
+            System.out.println("[3] - In attesa dell'username del client...");
+            String opponent = in.readLine();
+            System.out.println("[4] - Username del client: " + opponent);
+
+            System.out.println("[5] - Mando al client l'Username del server: " + user);
+            out.writeBytes(user);
             //client.close();
 
         } catch (IOException e) {
