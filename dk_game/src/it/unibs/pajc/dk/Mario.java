@@ -19,6 +19,8 @@ public class Mario extends DKObject {
         this.falling = false;
         this.alive = true;
         this.lifes = 4;
+        this.score = 0;
+
         Image im = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioStandRight.png").getImage();
         Image i = im.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         this.image = new ImageIcon(i).getImage();
@@ -26,6 +28,7 @@ public class Mario extends DKObject {
 
     public int getLifes() { return lifes; }
     public void setLifes(int lifes) { this.lifes = lifes; }
+
 
     /**
      * Manage the movement on the x-axis of Mario
@@ -119,6 +122,9 @@ public class Mario extends DKObject {
             this.setY(670);
             if (barrels.get(0).getPosition()[1] == 685)
                 barrels.remove(0);
+            Image image = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioStandRight.png").getImage();
+            Image scaled_image = image.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            this.setImage(new ImageIcon(scaled_image).getImage());
         }
     }
 }

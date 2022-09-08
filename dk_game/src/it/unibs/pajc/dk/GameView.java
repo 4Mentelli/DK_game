@@ -20,12 +20,15 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
 
     final int PANEL_WIDTH = 826;
     final int PANEL_HEIGHT = 760;
-    DonkeyKong kong = new DonkeyKong();
-    Mario mario = new Mario();
-    Peach peach = new Peach();
-    ArrayList<Ladder> ladders = new ArrayList<>();
-    ArrayList<Beam> beams = new ArrayList<>();
-    ArrayList<Barrel> barrels = new ArrayList<>();
+
+    private DonkeyKong kong = new DonkeyKong();
+    private Mario mario = new Mario();
+    private Peach peach = new Peach();
+    private ArrayList<Ladder> ladders = new ArrayList<>();
+    private ArrayList<Beam> beams = new ArrayList<>();
+    private ArrayList<Barrel> barrels = new ArrayList<>();
+    private int score = 0;
+
     private boolean left = false;
     private boolean up = false;
     private boolean down = false;
@@ -83,10 +86,9 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         Image i = barrelGroup.getScaledInstance(50, 77, Image.SCALE_SMOOTH);
         barrelGroup = new ImageIcon(i).getImage();
 
-        Image lifes = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioRight.png").getImage();
-        Image li = lifes.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        Image lifes = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioAll.png").getImage();
+        Image li = lifes.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         lifes = new ImageIcon(li).getImage();
-
 
         //Paint the object
         g2D.drawImage(kong.getImage(), kong.getPosition()[0], kong.getPosition()[1], null); //Donkey Kong
@@ -102,10 +104,16 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         for (int j = 0; j < mario.getLifes() - 1; j++)
             g2D.drawImage(lifes, j * 40 +10, 10, null);
 
-        if (mario.getLifes() == 0) {
-            g2D.setColor(Color.WHITE);
+        g2D.setColor(Color.WHITE);
+        g2D.setFont(new Font("dialoginput", Font.BOLD, 30));
+        g2D.drawString("SCORE " + mario.getScore(), PANEL_WIDTH / 2 - 250, 40);
+
+        if (mario.getLifes() == 0 || !mario.isAlive()) {
             g2D.setFont(new Font("dialoginput", Font.BOLD, 100));
-            g2D.drawString("Hai perso", PANEL_WIDTH / 2 - 300, PANEL_HEIGHT / 2);
+            g2D.drawString("GAME OVER", PANEL_WIDTH / 2 - 240, PANEL_HEIGHT / 2 + 10);
+
+            g2D.setFont(new Font("dialoginput", Font.BOLD, 50));
+            g2D.drawString("Your score: " + mario.getScore(), PANEL_WIDTH / 2 - 240, PANEL_HEIGHT / 2 + 100);
         }
     }
 
@@ -124,6 +132,14 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
 
                 mario.setY(mario.position[1] - 2 * mario.movement[1]);
                 mario.setN_jump(mario.getN_jump() - 1);
+            }
+        }
+
+        if (mario.checkCollision(peach)) {
+            mario.setAlive(false);
+            mario.setScore(mario.getScore() + 3000);
+            for (int i = mario.getLifes(); i > 1; i--) {
+                mario.setScore(mario.getScore() + 500);
             }
         }
     }
@@ -219,11 +235,11 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             for (int i = 0; i < barrels.size(); i++) {
                 barrels.get(i).barrelMovement();
                 barrels.get(i).gravity(ladders, 0);
-                if (mario.checkCollision(barrels.get(i))) {
+
+                if (mario.checkCollision(barrels.get(i)) || mario.checkCollision(kong)) {
                     Thread.sleep(2000);
                     mario.resetWorld(barrels);
                 }
-
 
                 if (barrels.get(i).position[0] > 300 && barrels.get(i).position[0] < 305 && barrels.get(i).position[1] == 370) {
                     Barrel new_b = new Barrel();

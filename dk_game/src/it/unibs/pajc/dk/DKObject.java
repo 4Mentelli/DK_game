@@ -14,6 +14,7 @@ public class DKObject {
     protected int n_jump;
     protected boolean falling;
     protected boolean alive;
+    protected int score;
 
     public Image getImage() {
         return image;
@@ -38,6 +39,9 @@ public class DKObject {
 
     public boolean isAlive() { return alive; }
     public void setAlive(boolean alive) { this.alive = alive; }
+
+    public int getScore() { return score; }
+    public void setScore(int score) { this.score = score; }
 
     public void moveX(int m) {
         if (this.position[0] >= 10 && this.position[0] <= 780 )

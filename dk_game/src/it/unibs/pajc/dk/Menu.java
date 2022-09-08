@@ -2,8 +2,13 @@ package it.unibs.pajc.dk;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
 
 public class Menu extends JFrame {
     private JFrame frame;
@@ -15,7 +20,8 @@ public class Menu extends JFrame {
 
     public Menu() {
         single_player_button.addActionListener(e -> initialize());
-        //mutliplayer_button.addActionListener(e -> initializeMultiplayer());
+        host_game_button.addActionListener(e -> initializeHostGame());
+        join_game_button.addActionListener(e -> initializeClientGame());
     }
 
     public static void main(String[] args) {
@@ -42,13 +48,21 @@ public class Menu extends JFrame {
         GameView view = new GameView();
 
         this.frame = new JFrame();
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.frame.add(view);
         this.frame.pack();
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
     }
 
+    public void initializeHostGame() {
+        Server server = new Server();
+        server.waitConnection();
+    }
 
+    public void initializeClientGame() {
+        Client client = new Client();
+        client.connect();
+    }
 }
 
