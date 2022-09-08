@@ -27,7 +27,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     private boolean right = false;
     private boolean space = false;
 
-    GameView(){
+    GameView() {
 
         //Create the beams
         Beam beam = new Beam(17, 715); //First beam
