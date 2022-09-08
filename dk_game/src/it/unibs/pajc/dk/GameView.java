@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.concurrent.*;
+import java.awt.Font;
 
 public class GameView extends JPanel implements ActionListener, KeyListener {
 
@@ -96,6 +96,11 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         for (int j = 0; j < mario.getLifes() - 1; j++)
             g2D.drawImage(lifes, j * 40 +10, 10, null);
 
+        if (mario.getLifes() == 0) {
+            g2D.setColor(Color.WHITE);
+            g2D.setFont(new Font("dialoginput", Font.BOLD, 100));
+            g2D.drawString("Hai perso", PANEL_WIDTH / 2 - 300, PANEL_HEIGHT / 2);
+        }
     }
 
     @Override
