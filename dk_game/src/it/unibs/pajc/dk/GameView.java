@@ -1,14 +1,20 @@
 package it.unibs.pajc.dk;
 
 
+import javax.print.attribute.standard.Media;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.awt.Font;
+import javax.sound.sampled.*;
+
 
 public class GameView extends JPanel implements ActionListener, KeyListener {
 
@@ -20,7 +26,6 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     ArrayList<Ladder> ladders = new ArrayList<>();
     ArrayList<Beam> beams = new ArrayList<>();
     ArrayList<Barrel> barrels = new ArrayList<>();
-
     private boolean left = false;
     private boolean up = false;
     private boolean down = false;
@@ -28,6 +33,7 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     private boolean space = false;
 
     GameView(){
+
 
         //Create the beams
         Beam beam = new Beam(17, 715); //First beam
@@ -244,6 +250,30 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             System.exit(0);
         }
     });
+
+    public Thread thread_sound = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            try {
+                playSound("dk_game/src/it/unibs/pajc/dk/sounds/bacmusic.wav");
+
+            }catch (Exception ex) {
+                ex.printStackTrace();
+                System.exit(0);
+            }
+        }
+    });
+
+    public void playSound(String sound) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+
+        File file = new File(sound);
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioStream);
+        clip.start();
+
+    }
+
 }
 
 

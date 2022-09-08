@@ -1,9 +1,13 @@
 package it.unibs.pajc.dk;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+
 
 public class App{
     private JFrame frame;
@@ -35,6 +39,7 @@ public class App{
         this.frame.setLocationRelativeTo(null);
         this.frame.setVisible(true);
     }
+
 
 
 }

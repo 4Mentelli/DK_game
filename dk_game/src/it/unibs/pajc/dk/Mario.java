@@ -106,6 +106,7 @@ public class Mario extends DKObject {
         ArrayList<Ladder> ladders = new ArrayList<>();
         if (this.onBeam(ladders, 0))
             this.setN_jump(8);
+
     }
 
     public void resetWorld(ArrayList<Barrel> barrels) {
