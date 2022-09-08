@@ -10,34 +10,29 @@ public class Menu extends JFrame {
     private JPanel panel;
     private JTextField player_name;
     private JButton single_player_button;
-    private JButton mutliplayer_button;
+    private JButton join_game_button;
+    private JButton host_game_button;
 
     public Menu() {
-        single_player_button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                initialize();
-            }
-        });
+        single_player_button.addActionListener(e -> initialize());
+        //mutliplayer_button.addActionListener(e -> initializeMultiplayer());
     }
 
     public static void main(String[] args) {
 
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Menu menu = new Menu();
-                    menu.setContentPane(menu.panel);
-                    menu.setTitle("MENU");
-                    menu.setBounds(600, 200, 400, 400);
-                    menu.setVisible(true);
-                    menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        EventQueue.invokeLater(() -> {
+            try {
+                Menu menu = new Menu();
+                menu.setContentPane(menu.panel);
+                menu.setTitle("MENU");
+                menu.setBounds(600, 200, 400, 400);
+                menu.setVisible(true);
+                menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-                } catch (Exception var2) {
-                    var2.printStackTrace();
-                }
-
+            } catch (Exception var2) {
+                var2.printStackTrace();
             }
+
         });
 
     }
