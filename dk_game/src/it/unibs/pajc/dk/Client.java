@@ -1,4 +1,5 @@
 package it.unibs.pajc.dk;
+import javax.swing.*;
 import java.net.*;
 import java.io.*;
 
@@ -10,21 +11,29 @@ public class Client {
     DataInputStream in;
     DataOutputStream out;
 
-    public Socket connect() {
+    BufferedReader reader;
+
+    public Socket connect(JLabel connection_label) {
+
+
         try {
-            System.out.println("[0] - Provo a connettermi al server...");
+
+            connection_label.setText("[0] - Provo a connettermi al server...");
+            connection_label.setHorizontalAlignment(SwingConstants.CENTER);
             Socket client = new Socket(InetAddress.getLocalHost(), port);
 
-            System.out.println("[1] - Connesso al server");
+            connection_label.setText("[1] - Connesso al server");
             in = new DataInputStream(client.getInputStream());
             out = new DataOutputStream(client.getOutputStream());
+
         } catch (UnknownHostException e) {
-            System.err.println("Host sconosciuto");
+            connection_label.setText("Host sconosciuto");
             e.printStackTrace();
         } catch (Exception e) {
-            System.err.println("Connessione fallita");
+            connection_label.setText("Connessione fallita");
         }
         return client;
     }
+
 
 }

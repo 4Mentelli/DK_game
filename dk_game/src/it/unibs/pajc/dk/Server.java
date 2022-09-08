@@ -13,14 +13,19 @@ public class Server {
     DataInputStream in;
     DataOutputStream out;
 
-    public Socket waitConnection() {
+    public Socket waitConnection(JLabel connection_label) {
+
         try {
+            connection_label.setText("[0] - Analizziamo il server...");
+            connection_label.setHorizontalAlignment(SwingConstants.CENTER);
             System.out.println("[0] - Analizziamo il server...");
             server = new ServerSocket(port); //inizializziamo il servizio
 
-            System.out.println("[1] - Server pronto in ascolto sulla porta " + port);
+            connection_label.setText("[1] - Server pronto in ascolto sulla porta " + port);
+            System.out.println();
             client = server.accept(); //mi metto in ascolto sulla porta che ho aperto
-            System.out.println("[2] - Connesione stabilita con un client");
+            connection_label.setText("[2] - Connesione stabilita con un client");
+            System.out.println();
 
             server.close(); //evitiamo connesioni multiple
 

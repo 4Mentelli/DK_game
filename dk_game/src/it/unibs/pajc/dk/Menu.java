@@ -17,8 +17,11 @@ public class Menu extends JFrame {
     private JButton single_player_button;
     private JButton join_game_button;
     private JButton host_game_button;
+    private JLabel connection_label = null;
+    private String player = null;
 
     public Menu() {
+        player = player_name.getText();
         single_player_button.addActionListener(e -> initialize());
         host_game_button.addActionListener(e -> initializeHostGame());
         join_game_button.addActionListener(e -> initializeClientGame());
@@ -57,12 +60,14 @@ public class Menu extends JFrame {
 
     public void initializeHostGame() {
         Server server = new Server();
-        server.waitConnection();
+        server.waitConnection(connection_label);
+        //server.message(connection_label);
     }
 
     public void initializeClientGame() {
         Client client = new Client();
-        client.connect();
+        client.connect(connection_label);
+        //client.message(connection_label);
     }
 }
 
