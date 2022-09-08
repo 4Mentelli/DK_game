@@ -9,6 +9,7 @@ public class Client {
 
     DataInputStream in;
     DataOutputStream out;
+    BufferedReader reader = null;
 
     public Socket connect() {
         try {
@@ -25,6 +26,24 @@ public class Client {
             System.err.println("Connessione fallita");
         }
         return client;
+    }
+
+    public void message() {
+        try {
+            reader = new BufferedReader(new InputStreamReader(System.in));
+
+            System.out.println("[2] - Messaggio da inviare al server: ");
+            String message = reader.readLine();
+            System.out.println("[3] - invio: "+ message);
+            out.writeBytes(message + "\n");
+            System.out.println("[4] - in attesa di una risposta");
+            String recived = in.readLine();
+            System.out.println("risposta del server: "+ recived);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

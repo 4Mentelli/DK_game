@@ -2,6 +2,7 @@ package it.unibs.pajc.dk;
 import javax.swing.*;
 import java.net.*;
 import java.io.*;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Server {
@@ -32,6 +33,22 @@ public class Server {
         }
         return client;
     }
+
+    public void message() {
+        try {
+            System.out.println("[3] - In attesa di un messaggio...");
+            String score = in.readLine();
+            System.out.println("[4] - Ricevuto il messaggio: " + score);
+            String recived_message = score.toUpperCase(Locale.ROOT);
+            System.out.println("[5] - Risposta del server: " + recived_message);
+            out.writeBytes(recived_message + "\n");
+            //client.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 

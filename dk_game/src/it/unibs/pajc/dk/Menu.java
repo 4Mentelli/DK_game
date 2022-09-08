@@ -58,11 +58,13 @@ public class Menu extends JFrame {
     public void initializeHostGame() {
         Server server = new Server();
         server.waitConnection();
+        server.message();
     }
 
     public void initializeClientGame() {
         Client client = new Client();
         client.connect();
+        client.message();
     }
 }
 
