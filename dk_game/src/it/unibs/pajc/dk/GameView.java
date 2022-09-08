@@ -251,16 +251,13 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         }
     });
 
-    public Thread thread_sound = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            try {
-                playSound("dk_game/src/it/unibs/pajc/dk/sounds/bacmusic.wav");
+    public Thread thread_sound = new Thread(() -> {
+        try {
+            playSound("dk_game/src/it/unibs/pajc/dk/sounds/bacmusic.wav");
 
-            }catch (Exception ex) {
-                ex.printStackTrace();
-                System.exit(0);
-            }
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(0);
         }
     });
 
