@@ -77,6 +77,11 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         Image i = barrelGroup.getScaledInstance(50, 77, Image.SCALE_SMOOTH);
         barrelGroup = new ImageIcon(i).getImage();
 
+        Image lifes = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioRight.png").getImage();
+        Image li = lifes.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        lifes = new ImageIcon(li).getImage();
+
+
         //Paint the object
         g2D.drawImage(kong.getImage(), kong.getPosition()[0], kong.getPosition()[1], null); //Donkey Kong
         for (Beam b : beams)
@@ -88,23 +93,28 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
         g2D.drawImage(mario.getImage(), mario.getPosition()[0], mario.getPosition()[1], null); //Mario
         g2D.drawImage(peach.getImage(), peach.getPosition()[0], peach.getPosition()[1], null); //Peach
         g2D.drawImage(barrelGroup, 50, 113, null); //BarrelGroup
+        for (int j = 0; j < mario.getLifes() - 1; j++)
+            g2D.drawImage(lifes, j * 40 +10, 10, null);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        thread.run();
-        barrel_thread.run();
-        repaint();
+        if (mario.isAlive()) {
+            thread.run();
+            barrel_thread.run();
+            repaint();
 
-        mario.gravity(ladders, 10);
-        kong.resetStandingImage(barrels);
+            mario.gravity(ladders, 10);
+            kong.resetStandingImage(barrels);
 
-        if (mario.getN_jump() > 0) {
 
-            mario.setY(mario.position[1] - 2 * mario.movement[1]);
-            mario.setN_jump(mario.getN_jump() - 1);
+            if (mario.getN_jump() > 0) {
+
+                mario.setY(mario.position[1] - 2 * mario.movement[1]);
+                mario.setN_jump(mario.getN_jump() - 1);
+            }
         }
-
     }
 
     @Override
@@ -198,8 +208,11 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
             for (int i = 0; i < barrels.size(); i++) {
                 barrels.get(i).barrelMovement();
                 barrels.get(i).gravity(ladders, 0);
-                if (mario.checkCollision(barrels.get(i)))
-                    System.out.println("Collision" + i);
+                if (mario.checkCollision(barrels.get(i))) {
+                    Thread.sleep(2000);
+                    mario.resetWorld(barrels);
+                }
+
 
                 if (barrels.get(i).position[0] > 300 && barrels.get(i).position[0] < 305 && barrels.get(i).position[1] == 370) {
                     Barrel new_b = new Barrel();

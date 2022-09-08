@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Mario extends DKObject {
 
-
+    protected int lifes;
 
     public Mario() {
 
@@ -17,10 +17,15 @@ public class Mario extends DKObject {
         this.width = 40;
         this.n_jump = 0;
         this.falling = false;
+        this.alive = true;
+        this.lifes = 4;
         Image im = new ImageIcon("dk_game/src/it/unibs/pajc/dk/images/marioStandRight.png").getImage();
         Image i = im.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
         this.image = new ImageIcon(i).getImage();
     }
+
+    public int getLifes() { return lifes; }
+    public void setLifes(int lifes) { this.lifes = lifes; }
 
     /**
      * Manage the movement on the x-axis of Mario
@@ -101,5 +106,18 @@ public class Mario extends DKObject {
         ArrayList<Ladder> ladders = new ArrayList<>();
         if (this.onBeam(ladders, 0))
             this.setN_jump(8);
+    }
+
+    public void resetWorld(ArrayList<Barrel> barrels) {
+        this.setLifes(this.getLifes() - 1);
+
+        if (this.getLifes() == 0)
+            this.setAlive(false);
+        else {
+            this.setX(160);
+            this.setY(670);
+            if (barrels.get(0).getPosition()[1] == 685)
+                barrels.remove(0);
+        }
     }
 }
