@@ -60,14 +60,24 @@ public class Menu extends JFrame {
 
     public void initializeHostGame() {
         Server server = new Server();
+<<<<<<< HEAD
         server.waitConnection(connection_label);
         //server.message(connection_label);
+=======
+        server.waitConnection();
+        server.message();
+>>>>>>> 6805c77fa58bffd12a6bbf269c5f0ff181c5af4e
     }
 
     public void initializeClientGame() {
         Client client = new Client();
+<<<<<<< HEAD
         client.connect(connection_label);
         //client.message(connection_label);
+=======
+        client.connect();
+        client.message();
+>>>>>>> 6805c77fa58bffd12a6bbf269c5f0ff181c5af4e
     }
 }
 
