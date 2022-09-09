@@ -62,6 +62,18 @@ public class Menu extends JFrame {
         Server server = new Server();
         server.waitConnection(connection_label);
         server.message(user, connection_label);
+
+        GameView view = new GameView();
+        view.setServer(true);
+        this.frame = new JFrame();
+        this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.frame.add(view);
+        this.frame.pack();
+        this.frame.setLocationRelativeTo(null);
+        this.frame.setVisible(true);
+
+
+
     }
 
     public void initializeClientGame() {
@@ -69,6 +81,15 @@ public class Menu extends JFrame {
         Client client = new Client();
         client.connect(connection_label);
         client.message(user, connection_label);
+
+        GameView view = new GameView();
+        view.setClient(true);
+        this.frame = new JFrame();
+        this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.frame.add(view);
+        this.frame.pack();
+        this.frame.setLocationRelativeTo(null);
+        this.frame.setVisible(true);
     }
 }
 

@@ -34,6 +34,34 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
     private boolean down = false;
     private boolean right = false;
     private boolean space = false;
+    protected boolean server = false;
+    protected int score_server;
+
+    public void setScore_server(int score_server) {
+        this.score_server = score_server;
+    }
+    protected boolean client = false;
+    protected int score_client;
+
+    public void setScore_client(int score_client) {
+        this.score_client = score_client;
+    }
+
+    public int getScore_server() {
+        return score_server;
+    }
+
+    public int getScore_client() {
+        return score_client;
+    }
+
+    protected void setServer(boolean server) {
+        this.server = server;
+    }
+
+    protected void setClient(boolean client) {
+        this.client = client;
+    }
 
     GameView() {
 
@@ -114,6 +142,12 @@ public class GameView extends JPanel implements ActionListener, KeyListener {
 
             g2D.setFont(new Font("dialoginput", Font.BOLD, 50));
             g2D.drawString("Your score: " + mario.getScore(), PANEL_WIDTH / 2 - 240, PANEL_HEIGHT / 2 + 100);
+
+            if(server)
+                this.setScore_server(mario.getScore());
+            if(client)
+                this.setScore_client(mario.getScore());
+
         }
     }
 
