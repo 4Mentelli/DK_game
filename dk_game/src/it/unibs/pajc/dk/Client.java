@@ -19,10 +19,12 @@ public class Client {
         try {
 
             connection_label.setText("[0] - Provo a connettermi al server...");
+            System.out.println("[0] - Provo a connettermi al server...");
             connection_label.setHorizontalAlignment(SwingConstants.CENTER);
             Socket client = new Socket(InetAddress.getLocalHost(), port);
 
             connection_label.setText("[1] - Connesso al server");
+            System.out.println("[1] - Connesso al server");
             in = new DataInputStream(client.getInputStream());
             out = new DataOutputStream(client.getOutputStream());
 
@@ -35,15 +37,18 @@ public class Client {
         return client;
     }
 
-    public void message(String user) {
+    public void message(String user, JLabel connection_label) {
         try {
-            reader = new BufferedReader(new InputStreamReader(System.in));
 
+            connection_label.setText("[2] - Username del client da inviare al server: " + user);
             System.out.println("[2] - Username del client da inviare al server: " + user);
-            out.writeBytes(user);
+            out.writeBytes(user+ "\n");
 
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            connection_label.setText("[3] - In attesa dell'username del server");
             System.out.println("[3] - In attesa dell'username del server");
-            String opponent = in.readLine();
+            String opponent = reader.readLine();
+            connection_label.setText("[4] - Username del server: "+ opponent);
             System.out.println("[4] - Username del server: "+ opponent);
 
 

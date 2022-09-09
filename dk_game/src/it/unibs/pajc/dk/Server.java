@@ -2,8 +2,6 @@ package it.unibs.pajc.dk;
 import javax.swing.*;
 import java.net.*;
 import java.io.*;
-import java.util.Locale;
-import java.util.Scanner;
 
 public class Server {
 
@@ -23,10 +21,10 @@ public class Server {
             server = new ServerSocket(port); //inizializziamo il servizio
 
             connection_label.setText("[1] - Server pronto in ascolto sulla porta " + port);
-            System.out.println();
+            System.out.println("[1] - Server pronto in ascolto sulla porta " + port);
             client = server.accept(); //mi metto in ascolto sulla porta che ho aperto
             connection_label.setText("[2] - Connesione stabilita con un client");
-            System.out.println();
+            System.out.println("[2] - Connesione stabilita con un client");
 
             server.close(); //evitiamo connesioni multiple
 
@@ -39,14 +37,20 @@ public class Server {
         return client;
     }
 
-    public void message(String user) {
+    public void message(String user, JLabel connection_label) {
         try {
+            out.writeBytes(user+"\n");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            connection_label.setText("[3] - In attesa dell'username del client...");
             System.out.println("[3] - In attesa dell'username del client...");
-            String opponent = in.readLine();
+            String opponent = reader.readLine();
+
+            connection_label.setText("[4] - Username del client: " + opponent);
             System.out.println("[4] - Username del client: " + opponent);
 
+            connection_label.setText("[5] - Mando al client l'Username del server: " + user);
             System.out.println("[5] - Mando al client l'Username del server: " + user);
-            out.writeBytes(user);
+
             //client.close();
 
         } catch (IOException e) {

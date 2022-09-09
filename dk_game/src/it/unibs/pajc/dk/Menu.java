@@ -61,14 +61,14 @@ public class Menu extends JFrame {
         String user = player_name.getText();
         Server server = new Server();
         server.waitConnection(connection_label);
-        server.message(user);
+        server.message(user, connection_label);
     }
 
     public void initializeClientGame() {
         String user = player_name.getText();
         Client client = new Client();
         client.connect(connection_label);
-        client.message(user);
+        client.message(user, connection_label);
     }
 }
 
