@@ -38,6 +38,7 @@ public class Menu extends JFrame {
                 menu.setVisible(true);
                 menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
             } catch (Exception var2) {
                 var2.printStackTrace();
             }
